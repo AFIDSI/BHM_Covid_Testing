@@ -2,6 +2,7 @@ import numpy as np
 from multiprocessing import Pool
 from itertools import product
 import os
+import pdb
 
 try:
     import plotly.graph_objs as go
@@ -443,3 +444,31 @@ def generate_plots_2d(Δ, τ, ξ_base, A_rel, d_vaccine, rel_ρ, δ_param, \
 
     return Reported_D, Infected_D, Dead_D, Y_D, Reported_D_com, Infected_D_com, \
         Dead_D_com, Y_D_com, results, prd
+
+
+if __name__ == '__main__':
+    τ_max = 0.005
+    τ_step = 0.001
+    Δ_min = 0.2
+    Δ_step = 0.1
+    Δ = 0.2
+    ξ_base = 0.01
+    A_rel = 0.5
+    d_vaccine = 500
+    rel_ρ = 1
+    δ_param = 6
+    ωR_param = 14
+    π_D = 0.01
+    R_0 = 2.5
+    rel_λ = 0.5
+    initial_infect = 300
+    slide_var = 1
+
+    τ_list = np.arange(0., τ_max + τ_step, τ_step)
+    Δ_list = np.arange(Δ_min, 1. + Δ_step, Δ_step)
+
+    f = generate_plots(Δ, τ_list, ξ_base, A_rel, d_vaccine*14+3*14, \
+                       rel_ρ, δ_param, ωR_param, π_D, \
+                       R_0, rel_λ, initial_infect, slide_var)
+
+    f.show()
